@@ -1,0 +1,9 @@
+{
+  "appId": "com.example.app",
+  "appName": "obligatorio_calorias",
+  "webDir": "www",
+  "bundledWebRuntime": true,
+  "server": {
+    "androidScheme": "https"
+  }
+}

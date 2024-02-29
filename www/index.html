@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obligatorio</title>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+</head>
+
+<body>
+    <ion-app>
+
+        <!--  RUTEO ASEGURA LA NAVEGABILIDAD -->
+
+        <ion-router id="ruteo">
+            <ion-route url="/" component="page-home"> </ion-route>
+            <ion-route url="/login" component="page-login"> </ion-route>
+            <ion-route url="/registrarU" component="page-registrar"> </ion-route>
+            <ion-route url="/registrarC" component="page-registrar-comida"> </ion-route>
+            <ion-route url="/listar" component="page-listar-comida"> </ion-route>
+            <ion-route url="/informeC" component="page-informe-calorias"> </ion-route>
+            <ion-route url="/mapa" component="page-mapa"> </ion-route>
+        </ion-router>
+        <ion-nav></ion-nav>
+
+        <!--  MENU DESPLEGABLE -->
+
+        <ion-menu content-id="main-content" id="menu">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Selecciona una opción</ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content class="ion-padding">
+
+                <ion-list lines="full">
+
+                    <ion-item button id="btnHome" href="/" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="home-outline"></ion-icon>
+                        <ion-label>Home</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnLogin" href="/login" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+                        <ion-label>Login</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnRegistrarU" href="/registrarU" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="person-add-outline"></ion-icon>
+                        <ion-label>Registrar Usuario</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnRegistrarC" href="/registrarC" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="add-outline"></ion-icon>
+                        <ion-label>Registrar Comida</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnListar" href="/listar" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="list-outline"></ion-icon>
+                        <ion-label>Listar Comidas</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnInformar" href="/informeC" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="stats-chart-outline"></ion-icon>
+                        <ion-label>Informe de Calorías</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnMapa" href="/mapa" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="map-outline"></ion-icon>
+                        <ion-label>Mapa</ion-label>
+                    </ion-item>
+
+                    <ion-item button id="btnCerrarSesion" href="/login" onclick="cerrarMenu()">
+                        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+                        <ion-label>Logout</ion-label>
+                    </ion-item>
+
+                </ion-list>
+
+            </ion-content>
+        </ion-menu>
+
+        <div class="ion-page" id="main-content">
+
+        </div>
+
+        <!--  PANTALLAS -->
+
+        <page-home class="ion-page" id="pantalla-home">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Bienvenido</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content class="ion-padding" fullscreen>
+                <p id="mensajeLoginExitoso" style="color: green;"></p>
+                <ion-img src="./img/ejercicio.jpg" alt="Persona activa y saludable"></ion-img>
+                <p class="custom-text">Empezá hoy a escribir el capítulo más saludable de tu vida</p>
+                <p id="mensajeLogueo"></p>
+            </ion-content>
+        </page-home>
+
+
+        <page-login class=" ion-page" id="pantalla-login">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Login</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding" fullscreen>
+
+                <ion-item>
+                    <ion-label position="floating">Usuario</ion-label>
+                    <ion-input type="email" placeholder="Ingrese su usuario" id="txtLoginUsuario"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="floating">Contraseña</ion-label>
+                    <ion-input type="password" placeholder="Ingrese su contraseña" id="txtPasswordUsuario"></ion-input>
+                </ion-item>
+
+                <p id="mensajeError" style="color: red;"></p>
+
+                <ion-button expand="block" id="btnHacerLogin">Iniciar sesión</ion-button>
+            </ion-content>
+        </page-login>
+
+
+        <page-registrar class="ion-page" id="pantalla-registroU">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Registro en la aplicación</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding" fullscreen>
+                <ion-item>
+                    <ion-label position="floating">Usuario</ion-label>
+                    <ion-input type="text" name="usuario" id="txtRegistroUsuario" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Contraseña</ion-label>
+                    <ion-input type="password" name="contrasena" id="txtRegistroPassword" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">País de residencia</ion-label>
+                    <ion-select type="text" name="pais" id="txtRegistroPais" required></ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Calorías diarias</ion-label>
+                    <ion-input type="number" name="calorias" id="txtRegistroCalorias" required></ion-input>
+                </ion-item>
+                <ion-button expand="block" id="btnRegistrarUsuario">Registrar Usuario</ion-button>
+                <p id="mensajeRegistroExitoso" style="color: green;"></p>
+                <p id="mensajeErrorRegistro" style="color: red;"></p>
+            </ion-content>
+        </page-registrar>
+
+
+        <page-registrar-comida class="ion-page" id="pantalla-registroC">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Registrar Comida</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding" fullscreen>
+                <ion-item>
+                    <ion-label position="floating">Seleccione alimento</ion-label>
+                    <ion-select name="pais" id="txtIdAlimento" required></ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Cantidad</ion-label>
+                    <ion-input type="number" name="txtCantidadAlimento" id="txtCantidadAlimento" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"></ion-label>
+                    <ion-input type="date" name="fecha" id="txtFechaAlimento" min="1990-01-01"
+                        max="{{ getToday() | date: 'yyyy-MM-dd' }}" display-format="DD/MM/YYYY" required></ion-input>
+                </ion-item>
+                <script>
+                    var inputFechaAlimento = document.getElementById('txtFechaAlimento');
+                    var fechaActual = new Date().toISOString().split('T')[0];
+                    inputFechaAlimento.max = fechaActual;
+                </script>
+                <ion-button expand="block" id="btnRegistrarAlimento">Registrar Alimento</ion-button>
+                <p id="mensajeRegistroAlimentoExitoso" style="color: green;"></p>
+                <p id="mensajeErrorAlimentoRegistro" style="color: red;"></p>
+            </ion-content>
+        </page-registrar-comida>
+
+        <page-listar-comidas class="ion-page" id="pantalla-listarC">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Listado de Comidas</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding" fullscreen>
+                <ion-list id="lista-comidas">
+                    <!-- Aquí se mostrarán los registros -->
+                </ion-list>
+                <p id="mensajeSinRegistros" style="color: red; display: none; text-align: center;">No tienes registros.
+                </p>
+                <div style="margin-top: 20px;">
+                    <ion-item>
+                        <ion-label position="stacked" style="margin-bottom: 5px;">Desde:</ion-label>
+                        <ion-input type="date" id="fechaInicio"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" style="margin-bottom: 5px;">Hasta:</ion-label>
+                        <ion-input type="date" id="fechaFin"></ion-input>
+                    </ion-item>
+                    <ion-button expand="block" id="btnFiltrar" style="margin-top: 20px;">Filtrar</ion-button>
+                </div>
+            </ion-content>
+        </page-listar-comidas>
+
+        <page-informe-calorias class="ion-page" id="pantalla-informeCalorias">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>Informe de Calorías</ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content class="ion-padding" fullscreen>
+                <div class="calorias-container">
+                    <div class="calorias-card">
+                        <ion-icon name="flame-outline" class="calorias-icon"></ion-icon>
+                        <ion-label> Total Calorías Ingeridas:</ion-label>
+                        <ion-label id="totalCalorias" class="calorias-value"></ion-label>
+                    </div>
+                    <div class="calorias-card">
+                        <ion-icon name="today-outline" class="calorias-icon"></ion-icon>
+                        <ion-label> Calorías Registradas Hoy:</ion-label>
+                        <ion-label id="caloriasDiarias" class="calorias-value"></ion-label>
+                    </div>
+                </div>
+            </ion-content>
+        </page-informe-calorias>
+
+
+        <page-mapa class="ion-page" id="pantalla-mapa">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>Mapa registros de usuarios</ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content>
+                <ion-item lines="none">
+                    <ion-label position="floating">Cantidad de usuarios</ion-label>
+                    <ion-input placeholder="Ingrese la cantidad de usuarios" type="number"
+                        id="userRecordsInput"></ion-input>
+                    <ion-button id="searchButton" color="primary">Buscar</ion-button>
+                    <p id="mensajeErrorMapa" style="color: red;"></p>
+                </ion-item>
+                <div id="map"></div>
+            </ion-content>
+        </page-mapa>
+
+
+    </ion-app>
+    <script src="js/codigo.js"></script>
+</body>
+
+</html>

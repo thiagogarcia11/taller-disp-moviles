@@ -1,0 +1,94 @@
+ion-menu {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #282c34;
+}
+
+ion-menu ion-content {
+  background-color: #ffffff;
+  color: #282c34;
+}
+
+ion-toolbar {
+  --background: #282c34;
+  --ion-color-base: #ffffff;
+}
+
+ion-title {
+  color: #ffffff;
+}
+
+ion-content {
+  --background: #f0f2f5;
+  --color: #282c34;
+}
+
+ion-menu-button {
+  --color: #ffffff;
+  --background: transparent;
+}
+
+ion-menu-button::part(icon) {
+  font-size: 1.5rem;
+}
+
+.custom-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.custom-text {
+  font-size: 18px;
+  color: #333333;
+}
+
+.mensaje-temporal {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.mensaje-temporal.mostrar {
+  opacity: 1;
+}
+
+.calorias-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.calorias-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(18, 11, 11, 0.1);
+  margin: 0 10px;
+}
+
+.calorias-icon {
+  font-size: 40px;
+  color: #ff6347;
+}
+
+.calorias-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#map {
+  height: 90%;
+  width: 100%;
+}
